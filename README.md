@@ -1,0 +1,4 @@
+weird
+=====
+
+weird framework

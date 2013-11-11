@@ -1,0 +1,130 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--    <parent>
+        <groupId>net.ili</groupId>
+        <artifactId>ili-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../ili-base</relativePath>
+    </parent>-->
+
+  
+
+    <groupId>net.ili</groupId>
+    <artifactId>ili-video</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>ili-video</name>
+
+    <properties>
+        <ili.base.version>1.0-SNAPSHOT</ili.base.version>
+        <jetty.version>9.0.5.v20130815</jetty.version>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+ 
+   
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <!--<strong><packagingExcludes>WEB-INF/web.xml</packagingExcludes></strong>-->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!--必须指定,否则默认会变成在target/war/work 导致被打包进war文件,指定后为target/work--> 
+                    <!--                    <workDirectory>${project.build.directory}/work</workDirectory>
+                    <useCache>false</useCache>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                    </archive>-->
+                    
+                    <overlays>
+                        <overlay>
+                            <groupId>net.ili</groupId>
+                            <artifactId>ili-base</artifactId>
+                            <!--                            <excludes>
+                                <exclude>WEB-INF/lib/*</exclude>
+                            </excludes>-->
+                            <!--                            <includes>
+                                <include>WEB-INF/*.xml</include>
+                                <include>WEB-INF/templates/*</include>
+                            </includes>-->
+                        </overlay>
+                        <!--<overlay>-->
+                        <!-- 空 groupId/artifactId代表当前构建 -->                        
+                        <!--</overlay>-->
+                    </overlays>
+                    <!--                    
+                首先是使用了maven-warpath-plugin插件,处理所有<type>warpath</type>的artifact,
+                这个插件可以将从依赖的WAR中传递的依赖都打包到当前的WAR中,
+                没有这个插件时,当前WAR从所依赖的WAR artifact那所传递来的依赖在打包成WAR时都会被忽略.
+                既然现在能将传递的依赖打包了,就不用copy依赖的war中的WEB-INF/lib/*,所以被加入到<dependentWarExcludes>中
+                    -->
+                    <dependentWarExcludes>WEB-INF/lib/*</dependentWarExcludes>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${endorsed.dir}</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>javax</groupId>
+                                    <artifactId>javaee-endorsed-api</artifactId>
+                                    <version>6.0</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- jetty插件, 设定context path与spring profile -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <httpConnector>
+                        <port>8080</port>
+                    </httpConnector>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <stopPort>9909</stopPort>
+                    <stopKey>foo</stopKey>
+                    <!--<stopWait>3</stopWait>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

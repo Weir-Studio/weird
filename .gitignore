@@ -4,3 +4,4 @@
 *.jar
 *.war
 *.ear
+/modules/weird-commons/target/

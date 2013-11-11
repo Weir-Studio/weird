@@ -3,18 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.ili</groupId>
-        <artifactId>ili-parent</artifactId>
+        <groupId>net.weir</groupId>
+        <artifactId>weird-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../ili-parent/pom.xml</relativePath>
+        <relativePath>../weird-parent/pom.xml</relativePath>
     </parent>
 
     <groupId>net.ili</groupId>
-    <artifactId>ili-commons</artifactId>
+    <artifactId>weird-commons</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ili-commons</name>
+    <name>weird::commons</name>
     <url>http://maven.apache.org</url>
 
     <properties>

@@ -1,4 +1,4 @@
-weird
-=====
+weird-modules
+=============
 
-weird framework
+weird modules

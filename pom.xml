@@ -5,10 +5,11 @@
     <groupId>net.weir</groupId>
     <artifactId>weird</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>weird</name>
     <packaging>pom</packaging>
+    <name>weird</name>
     
     <description>weird project is a spring framework and java server faces based javaEE application reference architecture.</description>
+    
     <url>https://github.com/weijiguang/weird</url>
     <inceptionYear>2012-2013</inceptionYear>
     <organization>
